@@ -20,6 +20,11 @@ struct ContentView: View {
                     Text(wish.title)
                         .font(.title.weight(.light))
                         .padding(.vertical, 2)
+                        .swipeActions{
+                            Button("Delete", role: .destructive){
+                                modelContext.delete(wish)
+                            }
+                        }
                    
                 }
             }//LIST
@@ -38,6 +43,8 @@ struct ContentView: View {
             .alert("Create a new wish",isPresented: $isAlertShowing){
                 TextField("enter your wish", text: $title)
                 Button{
+                    modelContext.insert(Wish(title: title))
+                    title = ""
                     
                 }label:{
                     Text("Save")
